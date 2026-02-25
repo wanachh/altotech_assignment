@@ -8,6 +8,35 @@ interface EnergyComparisonProps {
 
 export default function EnergyComparison({ manual_kwh, ai_kwh }: EnergyComparisonProps) {
   const improvement = Math.round(((manual_kwh - ai_kwh) / manual_kwh) * 100) || 0;
+  const isPositive = improvement > 0;
+  const isNegative = improvement < 0;
+  const theme = isPositive
+    ? {
+      bg: 'bg-emerald-50',
+      border: 'border-emerald-100',
+      text: 'text-emerald-700',
+      val: 'text-emerald-600',
+      badge: 'bg-emerald-600',
+      label: 'Improved'
+    }
+    : isNegative
+      ?
+      {
+        bg: 'bg-pink-50',
+        border: 'border-pink-100',
+        text: 'text-pink-700',
+        val: 'text-pink-600',
+        badge: 'bg-pink-600',
+        label: 'Decreased'
+      }
+      : {
+        bg: 'bg-slate-50',
+        border: 'border-slate-100',
+        text: 'text-slate-700',
+        val: 'text-slate-600',
+        badge: 'bg-slate-600',
+        label: 'No Change'
+      };
 
   return (
     <section className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
@@ -43,14 +72,19 @@ export default function EnergyComparison({ manual_kwh, ai_kwh }: EnergyCompariso
         </div>
       </div>
 
-      <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-4 flex items-center justify-between">
-        <p className="text-sm font-bold text-emerald-700">Total Efficiency Gained</p>
+      <div className={`${theme.bg} ${theme.border} border rounded-xl p-4 flex items-center justify-between`}>
+        <p className={`text-sm font-bold ${theme.text}`}>Total Efficiency Gained</p>
+
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-black text-emerald-600">{isNaN(improvement) ? 0 : improvement}%</span>
-          {/* show if improvement is positive */}
-          {improvement > 0 && (
-            <span className="text-xs bg-emerald-600 text-white px-2 py-0.5 rounded-full">Reduced</span>
-          )}
+          {/* Displaying the number (keeps the negative sign if < 0) */}
+          <span className={`text-2xl font-black ${theme.val}`}>
+            {isNaN(improvement) ? 0 : improvement}%
+          </span>
+
+          {/* Badge */}
+          <span className={`text-xs ${theme.badge} text-white px-2 py-0.5 rounded-full`}>
+            {theme.label}
+          </span>
         </div>
       </div>
     </section>
