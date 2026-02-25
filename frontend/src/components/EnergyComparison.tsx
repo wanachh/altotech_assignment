@@ -74,14 +74,13 @@ export default function EnergyComparison({ manual_kwh, ai_kwh }: EnergyCompariso
 
       <div className={`${theme.bg} ${theme.border} border rounded-xl p-4 flex items-center justify-between`}>
         <p className={`text-sm font-bold ${theme.text}`}>Total Efficiency Gained</p>
-
         <div className="flex items-center gap-2">
-          {/* Displaying the number (keeps the negative sign if < 0) */}
+          {/* Total Efficiency Gained (if improvement < 0 add - sign) */}
           <span className={`text-2xl font-black ${theme.val}`}>
             {isNaN(improvement) ? 0 : improvement}%
           </span>
 
-          {/* Badge */}
+          {/* badge */}
           <span className={`text-xs ${theme.badge} text-white px-2 py-0.5 rounded-full`}>
             {theme.label}
           </span>
