@@ -17,3 +17,14 @@ Thumbs.db
 
 # Temporary AI assistant files
 tmpclaude-*
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*$py.class
+db.sqlite3
+.env
+
+# Media/Static
+/static/
+/media/
